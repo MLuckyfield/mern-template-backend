@@ -35,9 +35,9 @@ const userRegister = async (userDets, role, res) =>{
 
 };
 
-const validateUserEmail = async(email) => {
-  let user = User.findOne({email});
-  return user ? false:true;
+const doesExist = async(email) => {
+  let user = await User.findOne({email});
+  return user ? true:false;
 };
 
 module.exports = {

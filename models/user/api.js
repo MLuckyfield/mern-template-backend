@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {userRegister} = require('../services/authentication');
+const {userRegister} = require('../../services/authentication');
 
 //Registration
 

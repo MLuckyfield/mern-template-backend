@@ -25,7 +25,7 @@ connection.once('open',() => {
 //const usersRouter = require('./routes/users');
 //app.use('/exercises',exercisesRouter);
 //app.use('/users',usersRouter);
-app.use('/models/user/model', require('./models/user/api'))
+app.use('/user', require('./models/user/api'))
 
 //start listening
 app.listen(port,() => {
