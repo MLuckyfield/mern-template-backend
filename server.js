@@ -3,6 +3,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
+
 require('dotenv').config();
 
 const app = express();
@@ -11,6 +12,7 @@ const port = process.env.PORT || 5000;
 //setup middleware
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
 
 //connect to Mongodb
 const uri = process.env.MONGO_URI;
@@ -26,6 +28,7 @@ connection.once('open',() => {
 //app.use('/exercises',exercisesRouter);
 //app.use('/users',usersRouter);
 app.use('/user', require('./models/user/api'))
+require('./services/passport')(passport);
 
 //start listening
 app.listen(port,() => {

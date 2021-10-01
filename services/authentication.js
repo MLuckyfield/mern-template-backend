@@ -1,6 +1,7 @@
 const User = require('../models/user/model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const passport = require('passport')
 
 //LOGIN
 const login = async (req, role, res) =>{
@@ -37,6 +38,7 @@ const login = async (req, role, res) =>{
       };
 
       return res.status(200).json({
+        result,
         message: 'Welcome back',
         success: true
       });
@@ -84,6 +86,25 @@ const register = async (req, role, res) =>{
 
 };
 
+//GATEKEEP
+const auth = passport.authenticate('jwt',{session: false});
+
+//
+const checkRole = roles => (req, res, next) =>
+  !roles.includes(req.user.role)
+    ? res.status(401).json("Unauthorized")
+    : next();
+
+//Specify exposed data
+const serialize = user => {
+  return{
+    _id: user._id,
+    name: user.name,
+    email: user.email
+  };
+};
+
+//Check if user exists by email
 const doesExist = async(email) => {
   let user = await User.findOne({email});
   return user ? true:false;
@@ -91,5 +112,8 @@ const doesExist = async(email) => {
 
 module.exports = {
   register,
-  login
+  login,
+  auth,
+  serialize,
+  checkRole
 }
