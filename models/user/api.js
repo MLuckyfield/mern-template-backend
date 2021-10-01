@@ -1,33 +1,39 @@
 const router = require('express').Router();
-const {userRegister} = require('../../services/authentication');
+const {register, login} = require('../../services/authentication');
 
 //Registration
 
     //user
     router.post('/register-user', async (req, res) => {
-      await userRegister(req.body,'user',res);
+      await register(req.body,'user',res);
     });
 
     //admin
     router.post('/register-admin', async (req, res) => {
-      await userRegister(req.body,'admin',res);
+      await register(req.body,'admin',res);
     });
 
     //super
     router.post('/register-super', async (req, res) => {
-      await userRegister(req.body,'super',res);
+      await register(req.body,'super',res);
     });
 
 //Login
 
     //user
-    router.post('/login-user', async (req, res) => {});
+    router.post('/login-user', async (req, res) => {
+      await login(req.body,'user',res);
+    });
 
     //admin
-    router.post('/login-admin', async (req, res) => {});
+    router.post('/login-admin', async (req, res) => {
+      await login(req.body,'admin',res);
+    });
 
     //super
-    router.post('/login-super', async (req, res) => {});
+    router.post('/login-super', async (req, res) => {
+      await login(req.body,'super',res);
+    });
 
 
 //Get Profile
