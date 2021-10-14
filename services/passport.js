@@ -1,6 +1,6 @@
 const User = require('../models/user/model');
 const { Strategy, ExtractJwt } = require("passport-jwt");
-
+/*
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET
@@ -21,4 +21,4 @@ module.exports = passport => {
         });
     })
   );
-};
+};*/

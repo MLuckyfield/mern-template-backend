@@ -12,7 +12,6 @@ const port = process.env.PORT || 5000;
 //setup middleware
 app.use(cors());
 app.use(express.json());
-app.use(passport.initialize());
 
 //connect to Mongodb
 const uri = process.env.MONGO_URI;
@@ -27,8 +26,7 @@ connection.once('open',() => {
 //const usersRouter = require('./routes/users');
 //app.use('/exercises',exercisesRouter);
 //app.use('/users',usersRouter);
-app.use('/user', require('./models/user/api'))
-require('./services/passport')(passport);
+app.use('/user', require('./models/user/api'));
 
 //start listening
 app.listen(port,() => {

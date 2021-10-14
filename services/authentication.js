@@ -3,13 +3,16 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 
+const ADMIN = 'admin';
+const USER = 'user';
+
 //LOGIN
-const login = async (req, role, res) =>{
+const login = async (req, res) =>{
     let {email, password} = req;
     //check if exists
     const user = await User.findOne({email});
     if(!user){
-      return res.status(201).json({
+      return res.status(401).json({
         message: 'Email not found',
         success: false
       });
@@ -52,9 +55,9 @@ const login = async (req, role, res) =>{
 };
 
 //REGISTER
-const register = async (req, role, res) =>{
+const register = async (req, res) =>{
     //check if exists
-    let taken = await(doesExist(req.email));
+    let taken = await(exists(req.email));
     if (taken){
       return res.status(400).json({
         message:'Email already in use',
@@ -65,14 +68,12 @@ const register = async (req, role, res) =>{
     //encrypt password
     const password = await bcrypt.hash(req.password, 12);
 
-    //create new User
-    const newUser = new User({
-      ...req,
-      password,
-      role
-    });
     try{
-      await newUser.save();
+      await new User({
+        ...req,
+        password,
+        role: USER
+      }).save();
       return res.status(201).json({
         message: 'User created',
         success: true
@@ -105,7 +106,7 @@ const serialize = user => {
 };
 
 //Check if user exists by email
-const doesExist = async(email) => {
+const exists = async(email) => {
   let user = await User.findOne({email});
   return user ? true:false;
 };

@@ -8,8 +8,7 @@ const User = mongoose.model('User', new Schema({
     required: true,
     trim: true,
     lowercase: true,
-    unique: true,
-    match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    unique: true
   },
   password: {
     type: String,
