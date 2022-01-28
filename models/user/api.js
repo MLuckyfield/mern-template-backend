@@ -80,7 +80,7 @@ const User = require('./model')
             }
         })
 
-    router.get('/dash',auth.auth,auth.permission('admin'),async (req,res)=>{
+    router.get('/dash',auth.auth,auth.permission('user'),async (req,res)=>{
       console.log('hi')
       // console.log(req)
       return res.status(200).json({
