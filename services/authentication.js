@@ -60,9 +60,9 @@ const auth = (req,res,next)=>{
     });
   }
 }
-const permission = (access)=>{  
+const permission = (access)=>{
   return (req,res,next)=>{
-    console.log('required '+access)
+    console.log('permission check')
     if(req.user.role == access){
       next()
     }else{
